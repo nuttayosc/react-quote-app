@@ -8,6 +8,10 @@ class App extends React.Component {
   constructor() {
     super();
 
+    this.state = {
+      quote: null
+    };
+
     this.onQuote = this.onQuote.bind(this)
   }
   
@@ -20,14 +24,15 @@ class App extends React.Component {
     })
     .then(response => response.json())
     .then(json => {
-      this.content = json.content
-      console.log(this.content);
+      this.setState({ quote: json.content});
+
     });
   };
 
   render(){
     return(
       <div className="App">
+      <h1>{this.state.quote}</h1>
       <button onClick={this.onQuote}> Give me a quote</button>
       </div>
     )
