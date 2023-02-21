@@ -2,6 +2,7 @@ import { render } from '@testing-library/react';
 import React from'react'
 import ReactDom from 'react-dom'
 import './App.css';
+import rotate from './img/rotate.png';
 
 class App extends React.Component {
 
@@ -25,7 +26,7 @@ class App extends React.Component {
     .then(response => response.json())
     .then(json => {
       this.setState({ quote: json.content});
-
+      this.setState({ author: json.author})
     });
   };
 
@@ -33,11 +34,16 @@ class App extends React.Component {
     return(
       <div className="App">
       <h1>{this.state.quote}</h1>
-      <button onClick={this.onQuote}> Give me a quote</button>
+      <h2>{this.state.author}</h2>
+      {/* <button onClick={this.onQuote}> Give me a quote</button> */}
+      <img 
+        src={rotate}
+        onClick={this.onQuote}
+        className="rotatebutton"
+      ></img>
       </div>
     )
   }
-
 }
 
 export default App;
