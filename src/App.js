@@ -4,7 +4,37 @@ import ReactDom from 'react-dom'
 import './App.css';
 import rotate from './img/rotate.png';
 
-class App extends React.Component {
+const App = () => {
+  const [quote, setQuote] = React.useState();
+  const [author, setAuthor] = React.useState();
+  const onQuote = () => {
+    fetch('https://api.quotable.io/random', {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json'
+      }
+    })
+    .then(response => response.json())
+    .then(json => {
+      setQuote(json.content);
+      setAuthor(json.author);
+    }); 
+  }
+ return (
+  <div className="App">
+  <h1>{quote}</h1>
+  <h2>{author}</h2>
+  {/* <button onClick={this.onQuote}> Give me a quote</button> */}
+  <img 
+    src={rotate}
+    onClick={onQuote}
+    className="rotatebutton"
+  ></img>
+  </div>
+ )
+}
+
+/*class App extends React.Component {
 
   constructor() {
     super();
@@ -35,7 +65,7 @@ class App extends React.Component {
       <div className="App">
       <h1>{this.state.quote}</h1>
       <h2>{this.state.author}</h2>
-      {/* <button onClick={this.onQuote}> Give me a quote</button> */}
+      {/* <button onClick={this.onQuote}> Give me a quote</button>}
       <img 
         src={rotate}
         onClick={this.onQuote}
@@ -44,6 +74,6 @@ class App extends React.Component {
       </div>
     )
   }
-}
+}*/
 
 export default App;
