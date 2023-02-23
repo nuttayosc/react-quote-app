@@ -1,2 +1,2 @@
-#Random Quote Web
+Random Quote Web
 fetch quote from Quotable API
