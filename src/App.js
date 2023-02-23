@@ -1,13 +1,14 @@
 import { render } from '@testing-library/react';
-import React from'react'
+import React, { useState, useEffect } from 'react'
 import ReactDom from 'react-dom'
 import './App.css';
 import rotate from './img/rotate.png';
 
-const App = () => {
-  const [quote, setQuote] = React.useState();
-  const [author, setAuthor] = React.useState();
-  const onQuote = () => {
+function App() {
+  const [quote, setQuote] = React.useState(null);
+  const [author, setAuthor] = React.useState(null);
+
+  async function onQuote (){
     fetch('https://api.quotable.io/random', {
       method: 'GET',
       headers: {
@@ -20,6 +21,12 @@ const App = () => {
       setAuthor(json.author);
     }); 
   }
+
+
+  React.useEffect (() => {
+    onQuote();
+  }, []);
+
  return (
   <div className="App">
   <h1>{quote}</h1>
