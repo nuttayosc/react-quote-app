@@ -6,9 +6,8 @@ import rotate from './img/rotate.png';
 
 function App() {
   const [quote, setQuote] = React.useState(null);
-  const [author, setAuthor] = React.useState(null);
 
-  async function onQuote (){
+  function onQuote (){
     fetch('https://api.quotable.io/random', {
       method: 'GET',
       headers: {
@@ -17,20 +16,19 @@ function App() {
     })
     .then(response => response.json())
     .then(json => {
-      setQuote(json.content);
-      setAuthor(json.author);
+      setQuote(json);
     }); 
   }
 
 
   React.useEffect (() => {
-    onQuote();
+    if (quote === null) onQuote();
   }, []);
 
- return (
+return (
   <div className="App">
-  <h1>{quote}</h1>
-  <h2>{author}</h2>
+  <h1>{quote?.content}</h1>
+  <h2>{quote?.author}</h2>
   {/* <button onClick={this.onQuote}> Give me a quote</button> */}
   <img 
     src={rotate}
